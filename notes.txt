@@ -1,0 +1,20 @@
+Należy stworzyć widok (karty/tabela - pełna dowolność), który będzie wyświetlał:
+
+listę pacjentów (korzystamy z api -  https://cerber.pixel.com.pl/api/patients )
+
+wraz z ich lekami (korzystamy z api - https://cerber.pixel.com.pl/api/medicine )
+
+Na widoku powinien znajdować się przycisk umożliwiający filtrowanie:
+
+wyświetlanie wszystkich pacjentów powyżej 30 roku życia wraz z ich lekami
+
+wyświetlanie wszystkich pacjentów poniżej 63 roku życia wraz z lekami o mocy (pole strength w api) powyżej 8.
+
+Zadanie -  Vue.js
+
+Stylowanie - nie używamy frameworków css (np. bootstrap, tailwind)
+
+Dozwolone (ale nie wymagane) jest używanie preprocesorów np. SCSS
+
+Projekt należy wystawić na github + np github pages
+
