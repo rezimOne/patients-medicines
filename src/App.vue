@@ -42,17 +42,23 @@ export default {
     createPatientsWithMedicines() {
       if (this.allMedicines && this.allPatientsIds) {
         this.allPatientsIds.forEach(key => {
+
           this.allPatientsWithMedicines[key] = {
+            patientFullName: '',
             medicines: [],
-            totalMedicines: null
+            totalMedicines: null,
           }
+
         });
         for (let medicine in this.allMedicines) {
           for (let patientId in this.allMedicines[medicine].patientIds) {
             for (let idItem in this.allPatientsIds) {
+
               const patientIdList = this.allMedicines[medicine].patientIds;
+
               if (this.allPatientsIds[idItem] === patientIdList[patientId]) {
                 this.allPatientsWithMedicines[patientIdList[patientId]].medicines.push(
+
                   {
                     medicationName: this.allMedicines[medicine].medicationName,
                     unit: this.allMedicines[medicine].unit,
@@ -60,8 +66,10 @@ export default {
                     form: this.allMedicines[medicine].form,
                     expDate: this.allMedicines[medicine].expDate
                   }
+
                 )
                 this.allPatientsWithMedicines[patientIdList[patientId]].totalMedicines = this.allPatientsWithMedicines[patientIdList[patientId]].medicines.length;
+                this.allPatientsWithMedicines[patientIdList[patientId]].patientFullName = `${this.allPatients[patientId].name} ${this.allPatients[patientId].lastName}`;
               }
             }
           }
@@ -77,7 +85,9 @@ export default {
 
 <style lang="scss">
 body {
-  background-color: #283e55;
+  // background-color: #283e55;
+  // background-color: #2220af;
+  background-image: linear-gradient(to bottom right, #133a9e, #8cf4bd);
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -88,7 +98,7 @@ body {
   display: flex;
   flex-direction: column;
   // margin: 0 auto;
-  background-color:#425262;
+  // background-color:#425262;
   width: 450px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -116,7 +126,7 @@ body {
   .link {
     text-decoration: none;
     margin-left: 10px;
-    color: #c7c9b2;
+    color: #f0f3d2;
     font-weight: bold;
   }
   .button-load-data {

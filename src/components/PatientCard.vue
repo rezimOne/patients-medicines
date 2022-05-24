@@ -61,6 +61,7 @@
   margin: 0 auto;
   border-radius: 25px;
   margin-bottom: 10px;
+   box-shadow: 0px 0px 2px 1px #a6f0f0;
   .image-patient {
     z-index: 1;
     position: absolute;

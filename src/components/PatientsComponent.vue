@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
     <div class="wrapper-sort">
-      <label>age min: <input type="text" v-model="sortParams.ageMin"></label>
-      <label>age max: <input type="text" v-model="sortParams.ageMax"></label>
-      <label>[mg]: <input type="text" v-model="sortParams.mg"></label>
+      <div><span>age min</span><input type="text" v-model="sortParams.ageMin"></div>
+      <div><span>age max</span><input type="text" v-model="sortParams.ageMax"></div>
+      <div><span>mg</span><input type="text" v-model="sortParams.mg"></div>
       <!-- <label>[mg] max: <input type="text" v-model="sortParams.mgMax"></label> -->
       <button @click="sortPatientsSubmit"><span>v</span></button>
       <button @click="sortPatientsClear"><span>x</span></button>
@@ -111,24 +111,39 @@ export default {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 35px;
+  height: 100px;
   background-color: #f0f3d2;
   margin-bottom: 10px;
   color: #425262;
   font-size: .7rem;
   font-weight: bold;
-  label {
-    margin-left: 5px;
+  div {
+    // margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+    margin-bottom: 10px;
+    span {
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
   }
   input {
     outline: none;
-    width: 25px;
-    height: 15px;
-    color: #425262;
-    font-size: .7rem;
+    width: 45px;
+    height: 40px;
+    color: #f0f3d2;
+    font-size: 1.6rem;
     font-weight: bold;
     border: none;
-    border: 1px solid #425262;
+    border-radius: 5px;
+    background-color: #13569ec7;
+    box-shadow: inset 3px 4px 5px 1px #1414147b;
+    text-align: center;
+    cursor: pointer;
+
   }
   button {
     border-style: none;
