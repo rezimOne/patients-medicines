@@ -11,8 +11,8 @@
       <button @click="getPatientsByAgeMediStrength"><span style="color: red;">Click</span></button>
     </div>
     <div class="wrapper-cards">
-      <PatientCard v-for="(patient, index) in allPatients"
-      :key="index"
+      <PatientCard v-for="patient in allPatients"
+      :key="patient.id"
       :patient="patient"
       />
       <button @click="prevPage">PREV</button>
