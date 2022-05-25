@@ -1,11 +1,13 @@
 <template>
   <div class="wrapper">
     <MedicineCard v-for="(medicine, index) in medicines" :key=index />
+    <!-- <TodosComponent /> -->
   </div>
 </template>
 
 <script lang="js">
 import MedicineCard from './MedicineCard.vue'
+// import TodosComponent from './TodosComponent.vue'
 export default {
   name: 'MedicinesComponent',
   components: { MedicineCard },

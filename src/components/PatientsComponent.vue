@@ -4,29 +4,33 @@
       <div><span>age min</span><input type="text" v-model="sortParams.ageMin"></div>
       <div><span>age max</span><input type="text" v-model="sortParams.ageMax"></div>
       <div><span>mg</span><input type="text" v-model="sortParams.mg"></div>
-      <!-- <label>[mg] max: <input type="text" v-model="sortParams.mgMax"></label> -->
       <button @click="sortPatientsSubmit"><span>v</span></button>
       <button @click="sortPatientsClear"><span>x</span></button>
       <button @click="setPatientsIdsByMediStrength"><span style="color: orange;">Click</span></button>
       <button @click="getPatientsByAgeMediStrength"><span style="color: red;">Click</span></button>
     </div>
     <div class="wrapper-cards">
-      <PatientCard v-for="patient in allPatients"
-      :key="patient.id"
-      :patient="patient"
+      <PatientCard v-for="patient in allVisiblePatients"
+        :key="patient.id"
+        :patient="patient"
+        :currentPage="currentPage"
       />
-      <button @click="prevPage">PREV</button>
-      <button @click="nextPage">NEXT</button>
-      <span>Page: {{ currentPage }}/{{ numOfPages }}</span>
     </div>
+    <PaginationComponent
+      :currentPage="currentPage"
+      :allPatients="allPatients"
+      :recordsPerPage="recordsPerPage"
+      v-on:page:update="updatePage"
+    />
   </div>
 </template>
 
 <script lang="js">
 import PatientCard from './PatientCard.vue'
+import PaginationComponent from './PaginationComponent.vue'
 export default {
   name: 'PatientsComponent',
-  components: { PatientCard },
+  components: { PatientCard, PaginationComponent },
   data() {
     return {
       sortParams: {
@@ -37,9 +41,13 @@ export default {
         isActive: false
       },
       patientsIdsByMediStrength: [],
-      currentPage: 1,
-      recordsPerPage: 10,
+      currentPage: 0,
+      recordsPerPage: 9,
+      allVisiblePatients: []
     }
+  },
+  beforeMount() {
+    this.updateAllVisiblePatients();
   },
   computed: {
     allPatients() {
@@ -55,9 +63,6 @@ export default {
     patjentsMedicinesObj() {
       return this.$store.getters.getPatientsWithMedicines;
     },
-    numOfPages() {
-      return Math.ceil(this.allPatients.length / this.recordsPerPage);
-    }
   },
   methods: {
     sortPatientsSubmit() {
@@ -86,18 +91,16 @@ export default {
       }
       console.log(this.$store.getters.getPatients.filter(item => item.age < 63 && myArr.includes(item.id)));
     },
-    prevPage() {
-      if(this.currentPage > 1){
-        this.currentPage--;
-        //console.log(this.currentPage)
-      }
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateAllVisiblePatients();
     },
-    nextPage() {
-      if(this.currentPage < this.numOfPages){
-        this.currentPage++;
-        //console.log(this.currentPage)
+    updateAllVisiblePatients() {
+      this.allVisiblePatients = this.allPatients.slice(this.currentPage * this.recordsPerPage, (this.currentPage * this.recordsPerPage) + this.recordsPerPage);
+      if(this.allVisiblePatients.length === 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1);
       }
-    },
+    }
   }
 }
 </script>
@@ -105,6 +108,12 @@ export default {
 <style lang="scss" scoped>
 .wrapper-cards {
   margin: 0 auto;
+  height: 90%;
+  // background-color: orange;
+}
+.wrapper {
+  // background-color: green;
+  height: 100%;
 }
 .wrapper-sort {
   display: flex;
@@ -169,10 +178,5 @@ export default {
       font-weight: bold;
     }
   }
-}
-.pagination {
-  position: absolute;
-  bottom: 0;
-  left: 5px;
 }
 </style>

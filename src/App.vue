@@ -79,6 +79,7 @@ export default {
       console.log(this.allPatientsWithMedicines);
       this.loginStatus = true;
     },
+
   }
 }
 </script>
